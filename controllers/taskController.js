@@ -39,7 +39,20 @@ const getTaskById = async (id, res) => {
 // @desc Create new task
 // @route   POST /api/tasks
 const addTask = async (req, res) => {
-  // implement logic to create task and send created task as response
+  try {
+    const body = await getPostData(req);
+    const task = await TaskModel.create(JSON.parse(body));
+    res.writeHead(201, { "Content-Type": "application/json" });
+    res.end(
+      JSON.stringify({
+        id: task.id,
+        completed: task.completed,
+        todo: "New task",
+      })
+    );
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 // @desc Update task by id

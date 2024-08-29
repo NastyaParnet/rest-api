@@ -64,7 +64,7 @@ describe("GET /api/v1/tasks/{id}", () => {
 describe("POST /api/v1/tasks", () => {
   let taskId;
   const newTask = { todo: "New task" };
-  it.skip("It should create and return new task", async () => {
+  it("It should create and return new task", async () => {
     const response = await request(app).post("/api/v1/tasks").send(newTask);
     expect(response.statusCode).toBe(201);
     expect(response.body.id).toBeDefined();
@@ -72,13 +72,13 @@ describe("POST /api/v1/tasks", () => {
     expect(response.body.completed).toBe(false);
     taskId = response.body.id;
   });
-  it.skip("It should return created task in list of all tasks", async () => {
+  it("It should return created task in list of all tasks", async () => {
     const response = await request(app).get("/api/v1/tasks");
     expect(response.statusCode).toBe(200);
     const createdTask = response.body.find((task) => task.id === taskId);
     expect(createdTask.todo).toEqual(newTask.todo);
   });
-  it.skip("It should return created task by its` id", async () => {
+  it("It should return created task by its` id", async () => {
     const response = await request(app).get(`/api/v1/tasks/${taskId}`);
     expect(response.statusCode).toBe(200);
     expect(response.body).toEqual({

@@ -17,9 +17,16 @@ const findById = async (id) => {
   throw new Error(`Task with id ${id} not found`);
 };
 
-const create = async (todo) => {
-  /* create new task with unique id, push it into array of tasks,
-    write new array in file and return created task*/
+const create = async (task) => {
+  const tasks = await readTasks();
+  const newTask = {
+    id: tasks[tasks.length - 1].id + 1,
+    completed: false,
+    ...task,
+  };
+  tasks.push(newTask);
+  await writeTasks(tasks);
+  return newTask;
 };
 
 const update = async (id, task) => {
