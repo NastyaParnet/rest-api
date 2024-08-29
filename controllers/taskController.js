@@ -22,7 +22,6 @@ const getTasks = async (query, res) => {
 // @route   GET /api/tasks/:id
 const getTaskById = async (id, res) => {
   try {
-    console.log('start');
     const task = await TaskModel.findById(id);
     res.writeHead(200, { "Content-Type": "application/json" });
     res.end(JSON.stringify(task));
@@ -63,8 +62,19 @@ const updateTask = async (req, res) => {
 
 // @desc delete task by id
 // @route   DELETE /api/tasks/:id
-const deleteTaskById = async (req, res) => {
-  // implement logic to delete task
+const deleteTaskById = async (id, res) => {
+  try {
+    const result = await TaskModel.remove(id);
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end(JSON.stringify({message: result}));
+  } catch (e) {
+    res.writeHead(404, { "Content-Type": "application/json" });
+    res.end(
+      JSON.stringify({
+        message: e.message,
+      })
+    );
+  }
 };
 
 module.exports = {

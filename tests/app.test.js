@@ -130,7 +130,7 @@ describe("PATCH /api/v1/tasks/{id}", () => {
 });
 
 describe("DELETE /api/v1/tasks/{id}", () => {
-  it.skip("It should delete task with id 1 and return 200 status code with message", async () => {
+  it("It should delete task with id 1 and return 200 status code with message", async () => {
     mockTasks = [
       {
         id: 1,
@@ -143,13 +143,13 @@ describe("DELETE /api/v1/tasks/{id}", () => {
     expect(response.body.message).toBe("Task with id 1 was deleted");
   });
 
-  it.skip("It should not exist task with id 1 after it is deleted", async () => {
+  it("It should not exist task with id 1 after it is deleted", async () => {
     const response = await request(app).get(`/api/v1/tasks/1`);
     expect(response.statusCode).toBe(404);
     expect(response.body.message).toBe("Task with id 1 not found");
   });
 
-  it.skip("It should return 404 status code with message", async () => {
+  it("It should return 404 status code with message", async () => {
     const response = await request(app).delete(`/api/v1/tasks/non-exist-id`);
     expect(response.statusCode).toBe(404);
     expect(response.body.message).toBe("Task with id non-exist-id not found");

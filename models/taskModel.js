@@ -36,8 +36,14 @@ const update = async (id, task) => {
 };
 
 const remove = async (id) => {
-  /* find task, delete it from array of tasks,
-  write new array of tasks into file*/
+  const tasks = await readTasks();
+  const index = tasks.findIndex(task => task.id == id);
+  if(index > -1) {
+    tasks.splice(index, 1);
+    await writeTasks(tasks);
+    return `Task with id ${id} was deleted`
+  }
+  throw new Error(`Task with id ${id} not found`);
 };
 
 module.exports = {
