@@ -30,9 +30,15 @@ const create = async (task) => {
 };
 
 const update = async (id, task) => {
-  /* find task, update info in it,
-    write new array of tasks into file
-    return updated task*/
+  const tasks = await readTasks();
+  const index = tasks.findIndex(task => task.id == id);
+  if(index > -1) {
+    const updatedTask = {...tasks[index], ...task};
+    tasks.splice(index, 1, updatedTask);
+    await writeTasks(tasks);
+    return updatedTask;
+  }
+  throw new Error(`Task with id ${id} not found`);
 };
 
 const remove = async (id) => {

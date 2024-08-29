@@ -21,7 +21,7 @@ const router = (req, res) => {
     } else if (req.method === "DELETE") {
       deleteTaskById(id, res);
     } else if (req.method === "PATCH") {
-      updateTask(id, query, res);
+      updateTask(id, req, res);
     }
   } else {
     res.writeHead(404, { "Content-Type": "application/json" });

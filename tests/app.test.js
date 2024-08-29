@@ -90,7 +90,7 @@ describe("POST /api/v1/tasks", () => {
 });
 
 describe("PATCH /api/v1/tasks/{id}", () => {
-  it.skip("It should update a task with new todo and completed", async () => {
+  it("It should update a task with new todo and completed", async () => {
     mockTasks = [
       {
         id: 42,
@@ -105,7 +105,7 @@ describe("PATCH /api/v1/tasks/{id}", () => {
     expect(response.body.todo).toBe("Updated task");
     expect(response.body.completed).toBe(true);
   });
-  it.skip("It should update a task with only completed", async () => {
+  it("It should update a task with only completed", async () => {
     mockTasks = [
       {
         id: 43,
@@ -120,7 +120,7 @@ describe("PATCH /api/v1/tasks/{id}", () => {
     expect(response.body.todo).toBe(mockTasks[0].todo);
     expect(response.body.completed).toBe(true);
   });
-  it.skip("It should return 404 status code with message", async () => {
+  it("It should return 404 status code with message", async () => {
     const response = await request(app)
       .patch(`/api/v1/tasks/non-exist-id`)
       .send({ todo: "Updated task", completed: true });

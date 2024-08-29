@@ -52,8 +52,22 @@ const addTask = async (req, res) => {
 
 // @desc Update task by id
 // @route   PATCH /api/tasks/:id
-const updateTask = async (req, res) => {
-  // implement logic to update task and send updated task as response
+const updateTask = async (id, req, res) => {
+  try {
+    const body = await getPostData(req);
+    const task = await TaskModel.update(id, JSON.parse(body));
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end(
+      JSON.stringify(task)
+    );
+  } catch (e) {
+    res.writeHead(404, { "Content-Type": "application/json" });
+    res.end(
+      JSON.stringify({
+        message: e.message,
+      })
+    );
+  }
 };
 
 // @desc delete task by id
