@@ -43,11 +43,7 @@ const addTask = async (req, res) => {
     const task = await TaskModel.create(JSON.parse(body));
     res.writeHead(201, { "Content-Type": "application/json" });
     res.end(
-      JSON.stringify({
-        id: task.id,
-        completed: task.completed,
-        todo: "New task",
-      })
+      JSON.stringify(task)
     );
   } catch (e) {
     console.log(e);
