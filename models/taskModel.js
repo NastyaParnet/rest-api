@@ -9,7 +9,12 @@ const findByCompleted = async (completed) => {
 };
 
 const findById = async (id) => {
-  //return task with corresponding id
+  const tasks = await readTasks();
+  const taskById = tasks.find((task) => task.id == id);
+  if(taskById) {
+    return taskById
+  }
+  throw new Error(`Task with id ${id} not found`);
 };
 
 const create = async (todo) => {

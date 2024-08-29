@@ -20,8 +20,20 @@ const getTasks = async (query, res) => {
 
 // @desc Get task by id
 // @route   GET /api/tasks/:id
-const getTaskById = async (req, res) => {
-  // implement logic to obtain task by id and send this task as pesponse
+const getTaskById = async (id, res) => {
+  try {
+    console.log('start');
+    const task = await TaskModel.findById(id);
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end(JSON.stringify(task));
+  } catch (e) {
+    res.writeHead(404, { "Content-Type": "application/json" });
+    res.end(
+      JSON.stringify({
+        message: e.message,
+      })
+    );
+  }
 };
 
 // @desc Create new task

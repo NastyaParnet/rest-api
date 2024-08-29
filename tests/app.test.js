@@ -42,7 +42,7 @@ describe("GET /api/v1/tasks", () => {
 });
 
 describe("GET /api/v1/tasks/{id}", () => {
-  it.skip("responds with 200 status code and 1 task", async () => {
+  it("responds with 200 status code and 1 task", async () => {
     mockTasks = [
       {
         id: 1,
@@ -54,7 +54,7 @@ describe("GET /api/v1/tasks/{id}", () => {
     expect(response.statusCode).toBe(200);
     expect(response.body).toEqual(mockTasks[0]);
   });
-  it.skip("It should return 404 status code with message", async () => {
+  it("It should return 404 status code with message", async () => {
     const response = await request(app).get(`/api/v1/tasks/non-exist-id`);
     expect(response.statusCode).toBe(404);
     expect(response.body.message).toBe("Task with id non-exist-id not found");
