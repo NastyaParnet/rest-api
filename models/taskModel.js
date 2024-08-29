@@ -4,7 +4,8 @@ const { writeTasks, readTasks } = require("../utils");
 const findAll = async () => await readTasks();
 
 const findByCompleted = async (completed) => {
-  //return filtered tasks
+  const tasks = await readTasks();
+  return tasks.filter((task) => task.completed === completed);
 };
 
 const findById = async (id) => {

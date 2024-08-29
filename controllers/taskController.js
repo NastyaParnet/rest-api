@@ -1,10 +1,21 @@
-const Task = require("../models/taskModel");
+const TaskModel = require("../models/taskModel");
 const { getPostData } = require("../utils");
 
 // @desc Gets All tasks with filter
 // @route   GET /api/tasks?filterByCompleted=true|false
 const getTasks = async (query, res) => {
-  // implement logic to obtain all tasks or tasks with filtering and send tasks as pesponse
+  try {
+    let tasks;
+    if (["true", "false"].includes(query.findByCompleted)) {
+      tasks = [...(await TaskModel.findByCompleted(query.findByCompleted === "true"))];
+    } else {
+      tasks = [...(await TaskModel.findAll())];
+    }
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end(JSON.stringify(tasks));
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 // @desc Get task by id
